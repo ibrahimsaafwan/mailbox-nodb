@@ -19,6 +19,7 @@ class ContactController extends Controller
         $data = $request->validated();
 
         $paths = [];
+
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $file) {
                 $fileName = time() . '_' . uniqid() . '.' . $file->extension();
@@ -28,6 +29,7 @@ class ContactController extends Controller
         }
 
         $toEmail = 'vaibrahim24@gmail.com';
+
         Mail::to($toEmail)->send(new ContactMail($data, $paths));
 
         return redirect()->back()->with('Status', 'Form submitted successfully!');
